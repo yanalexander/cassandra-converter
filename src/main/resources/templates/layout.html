@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Cassandra Converter</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta name="description" content="Cassandra Converter"/>
+    <meta name="author" content="Felipe Dalcin && Yan Venera"/>
+    <!--<link rel="icon" th:href="@{/image/favicon.png}" />-->
+    <!-- Bootstrap core CSS -->
+    <link th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}" rel="stylesheet" />
+    <link th:href="@{/css/styles.css}" rel="stylesheet">
+</head>
+<body>
+<header th:replace="fragments/header :: header">
+    <div>header</div>
+</header>
+
+<main class="layout-main mb-5">
+    <section layout:fragment="content">
+        <div>Main content page</div>
+    </section>
+</main>
+
+<footer th:replace="fragments/footer :: footer">
+    <div>footer</div>
+</footer>
+</body>
+<!-- Bootstrap core JavaScript-->
+<script type="application/javascript" th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+</html>
