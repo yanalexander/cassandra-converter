@@ -1,4 +1,4 @@
-package br.com.cassandaconverter.config;
+package br.com.cassandraconverter.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -13,7 +13,7 @@ import org.springframework.data.cassandra.repository.config.EnableCassandraRepos
 
 @Configuration
 @PropertySource(value = {"classpath:application.properties"})
-@EnableCassandraRepositories(basePackages = "br.com.cassandaconverter.repository")
+@EnableCassandraRepositories(basePackages = "br.com.cassandraconverter.repository")
 public class CassandraConfig extends AbstractCassandraConfiguration {
 
     private static final String KEYSPACE = "spring.data.cassandra.keyspace-name";

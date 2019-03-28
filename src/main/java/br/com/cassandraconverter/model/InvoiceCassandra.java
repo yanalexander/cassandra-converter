@@ -1,4 +1,4 @@
-package br.com.cassandaconverter.model.cassandra;
+package br.com.cassandraconverter.model;
 
 import com.datastax.driver.core.DataType;
 import org.springframework.data.cassandra.core.mapping.CassandraType;

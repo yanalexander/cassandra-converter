@@ -1,6 +1,26 @@
-package br.com.cassandaconverter.service;
+package br.com.cassandraconverter.service;
 
+import br.com.cassandraconverter.utils.MySqlConnect;
+import org.springframework.stereotype.Service;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+
+@Service
 public class InvoiceCassandraService {
+    private MySqlConnect mySqlConnect = new MySqlConnect();
+
+    public void convertMySqlDataToCassanda(){
+        try {
+            Connection conn = mySqlConnect.getConnect();
+
+
+
+        }catch (SQLException exc){
+            System.out.println(exc.getMessage());
+        }
+    }
+
     //Select Consulting
     /*select c.name                  customer_name,
     c.address               customer_address,

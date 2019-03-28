@@ -1,4 +1,4 @@
-package br.com.cassandaconverter;
+package br.com.cassandraconverter;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
