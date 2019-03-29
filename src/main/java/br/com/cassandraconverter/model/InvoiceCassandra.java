@@ -30,6 +30,7 @@ public class InvoiceCassandra implements Serializable {
     private Double item_subtotal;
     private String service_description;
     private String department_name;
+    private String resource_name;
     private String qualification_name;
 
     public UUID getId() {
@@ -150,5 +151,13 @@ public class InvoiceCassandra implements Serializable {
 
     public void setQualification_name(String qualification_name) {
         this.qualification_name = qualification_name;
+    }
+
+    public String getResource_name() {
+        return resource_name;
+    }
+
+    public void setResource_name(String resource_name) {
+        this.resource_name = resource_name;
     }
 }

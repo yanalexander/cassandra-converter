@@ -7,13 +7,12 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.data.cassandra.config.AbstractCassandraConfiguration;
 import org.springframework.data.cassandra.config.CassandraClusterFactoryBean;
-import org.springframework.data.cassandra.core.mapping.BasicCassandraMappingContext;
-import org.springframework.data.cassandra.core.mapping.CassandraMappingContext;
+import org.springframework.data.cassandra.config.SchemaAction;
 import org.springframework.data.cassandra.repository.config.EnableCassandraRepositories;
 
 @Configuration
 @PropertySource(value = {"classpath:application.properties"})
-@EnableCassandraRepositories(basePackages = "br.com.cassandraconverter.repository")
+@EnableCassandraRepositories(basePackages = {"br.com.cassandraconverter.repository"})
 public class CassandraConfig extends AbstractCassandraConfiguration {
 
     private static final String KEYSPACE = "spring.data.cassandra.keyspace-name";
@@ -36,9 +35,11 @@ public class CassandraConfig extends AbstractCassandraConfiguration {
         return cluster;
     }
 
-    @Bean
-    public CassandraMappingContext cassandraMapping() throws ClassNotFoundException {
-        return new BasicCassandraMappingContext();
+    public String[] getEntityBasePackages() {
+        return new String[] { "br.com.cassandraconverter.model" };
     }
 
+    public SchemaAction getSchemaAction() {
+        return SchemaAction.CREATE_IF_NOT_EXISTS;
+    }
 }

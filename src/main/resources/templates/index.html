@@ -15,11 +15,97 @@
 <body>
 <div class="layout-main">
     <section layout:fragment="content">
-        <div class="container mt-auto">
-            <h1 class="display-4">Cassandra Converter</h1>
+        <div id="container" class="container">
+            <div class="col-sm-8 offset-sm-2 text-center">
+                <h1 class="display-4">Print Invoice</h1>
 
-            <div class="row">
-                <h4>Content</h4>
+                <div th:replace="fragments/alert"></div>
+
+                <form th:action="@{/select}" method="GET" class="justify-content-center">
+                    <div class="form-group">
+                        <input required="required" type="number" class="form-control"
+                               name="invoiceNumber" id="invoiceNumber" placeholder="Invoice Number">
+                    </div>
+                    <div class="btn-group">
+                        <button type="submit" class="btn btn-primary">Select</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div id="data-container" th:fragment="data-container" class="container" th:if="${header} != null">
+            <div class="text-center">
+                <h1 class="display-4" >Invoice</h1>
+                <form>
+                    <div class="form-group row">
+                        <div class="col-sm-4">
+                            <label for="header-costumer-name">Costumer</label>
+                            <input id="header-costumer-name" class="form-control" disabled="true" th:value="${header.costumer_name}">
+                        </div>
+
+                        <div class="col-sm-4">
+                            <label for="header-invoice-number">Invoice Number</label>
+                            <input id="header-invoice-number" class="form-control" disabled="true" th:value="${header.invoice_number}">
+                        </div>
+
+                        <div class="col-sm-4">
+                            <label for="header-invoice-date">Date</label>
+                            <input id="header-invoice-date" class="form-control" disabled="true" th:value="${header.invoice_date}">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            <label for="header-costumer-address">Address</label>
+                            <input id="header-costumer-address" class="form-control" disabled="true" th:value="${header.costumer_address}">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-sm-6">
+                            <label for="header-costumer-country">Country</label>
+                            <input id="header-costumer-country" class="form-control" disabled="true" th:value="${header.costumer_country}">
+                        </div>
+
+                        <div class="col-sm-6">
+                            <label for="header-invoice-value">Value</label>
+                            <input id="header-invoice-value" class="form-control" disabled="true" th:value="${header.invoice_value}">
+                        </div>
+                    </div>
+                </form>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">Value</th>
+                            <th scope="col">% Tax.</th>
+                            <th scope="col">% Dis.</th>
+                            <th scope="col">Service</th>
+                            <th scope="col">Department</th>
+                            <th scope="col">Resource</th>
+                            <th scope="col">Qualification</th>
+                            <th scope="col">Subtotal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="invoice : ${invoices}">
+                            <td scope="col" th:text="${invoice.item_quantity}">Title</td>
+                            <td scope="col" th:text="${invoice.item_unit_value}">Title</td>
+                            <td scope="col" th:text="${invoice.item_tax_percent}">Title</td>
+                            <td scope="col" th:text="${invoice.item_discount_percent}">Title</td>
+                            <td scope="col" th:text="${invoice.service_description}">Title</td>
+                            <td scope="col" th:text="${invoice.department_name}">Title</td>
+                            <td scope="col" th:text="${invoice.resource_name}">Title</td>
+                            <td scope="col" th:text="${invoice.qualification_name}">Title</td>
+                            <td scope="col" th:text="${invoice.item_subtotal}">Title</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="text-right" role="group">
+                    <div class="col-md-12">
+                        <a class="btn btn-success" title="Printer" th:href="@{/print/{invoiceId} (invoiceId=${header.invoice_number})}">Printer</a>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
