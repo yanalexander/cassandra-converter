@@ -46,27 +46,26 @@ public class HomeController
     }
 
     @RequestMapping(value="/select", method = RequestMethod.GET)
-    public String select(@RequestParam("invoiceNumber") Integer invoiceNumber, RedirectAttributes attr, ModelMap model){
+    public String select(@RequestParam("invoiceNumber") long invoiceNumber, RedirectAttributes attr, ModelMap model){
         List<InvoiceCassandra> listInvoice = cassandraInvoiceRepository.findByInvoice_number(invoiceNumber);
 
         if(listInvoice.size() > 0){
-            attr.addFlashAttribute("success", "Total de itens da nota "+listInvoice.size());
+            InvoiceHeader header = new InvoiceHeader();
+            header.setCostumer_name(listInvoice.get(0).getCostumer_name());
+            header.setCostumer_address(listInvoice.get(0).getCostumer_address());
+            header.setCostumer_country(listInvoice.get(0).getCostumer_country());
+            header.setInvoice_date(listInvoice.get(0).getInvoice_date());
+            header.setInvoice_number(listInvoice.get(0).getInvoice_number());
+            header.setInvoice_value(listInvoice.get(0).getInvoice_value());
+
+            model.addAttribute("invoices", listInvoice);
+            model.addAttribute("header", header);
+
+            return "/index";
         }else{
-            attr.addFlashAttribute("fail", "Invoice number "+invoiceNumber+" is not valid.");
+            attr.addFlashAttribute("fail", "Invoice number is not valid.");
+            return "redirect:/";
         }
-
-        InvoiceHeader header = new InvoiceHeader();
-        header.setCostumer_name(listInvoice.get(0).getCostumer_name());
-        header.setCostumer_address(listInvoice.get(0).getCostumer_address());
-        header.setCostumer_country(listInvoice.get(0).getCostumer_country());
-        header.setInvoice_date(listInvoice.get(0).getInvoice_date());
-        header.setInvoice_number(listInvoice.get(0).getInvoice_number());
-        header.setInvoice_value(listInvoice.get(0).getInvoice_value());
-
-        model.addAttribute("invoices", listInvoice);
-        model.addAttribute("header", header);
-
-        return "/index";
     }
 
     @RequestMapping(value="/print/{invoiceId}", method = RequestMethod.GET)
