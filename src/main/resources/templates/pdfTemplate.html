@@ -1,0 +1,59 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+</head>
+<body>
+<table id="header-table">
+    <tr>
+        <td>Costumer</td>
+        <td th:text="${header.getCostumer_name()}"></td>
+        <td>Invoice Number</td>
+        <td th:text="${header.getInvoice_number()}"></td>
+        <td>Date</td>
+        <td th:text="${header.getInvoice_number()}"></td>
+    </tr>
+
+    <tr>
+        <td>Address</td>
+        <td th:text="${header.getCostumer_address()}"></td>
+    </tr>
+
+    <tr>
+        <td>Country</td>
+        <td th:text="${header.getCostumer_country()}"></td>
+        <td>Value</td>
+        <td th:text="${header.getInvoice_value()}"></td>
+    </tr>
+</table>
+
+<table id="pdf-table">
+    <thead>
+        <tr>
+            <th scope="col">Quantity</th>
+            <th scope="col">Value</th>
+            <th scope="col">% Tax.</th>
+            <th scope="col">% Dis.</th>
+            <th scope="col">Service</th>
+            <th scope="col">Department</th>
+            <th scope="col">Resource</th>
+            <th scope="col">Qualification</th>
+            <th scope="col">Subtotal</th>
+        </tr>
+    </thead>
+
+    <tbody>
+    <tr th:each="invoice : ${invoices}">
+        <td scope="col" th:text="${invoice.item_quantity}">Title</td>
+        <td scope="col" th:text="${invoice.item_unit_value}">Title</td>
+        <td scope="col" th:text="${invoice.item_tax_percent}">Title</td>
+        <td scope="col" th:text="${invoice.item_discount_percent}">Title</td>
+        <td scope="col" th:text="${invoice.service_description}">Title</td>
+        <td scope="col" th:text="${invoice.department_name}">Title</td>
+        <td scope="col" th:text="${invoice.resource_name}">Title</td>
+        <td scope="col" th:text="${invoice.qualification_name}">Title</td>
+        <td scope="col" th:text="${invoice.item_subtotal}">Title</td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
