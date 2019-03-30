@@ -6,6 +6,7 @@ import org.springframework.data.cassandra.core.mapping.PrimaryKey;
 import org.springframework.data.cassandra.core.mapping.Table;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
 import java.util.Date;
 import java.util.UUID;
 
@@ -159,5 +160,25 @@ public class InvoiceCassandra implements Serializable {
 
     public void setResource_name(String resource_name) {
         this.resource_name = resource_name;
+    }
+
+    public String getItemValue()
+    {
+        return new DecimalFormat("0.00").format(item_unit_value);
+    }
+
+    public String getItemTax()
+    {
+        return new DecimalFormat("0.00").format(item_tax_percent);
+    }
+
+    public String getItemDiscount()
+    {
+        return new DecimalFormat("0.00").format(item_discount_percent);
+    }
+
+    public String getItemSubtotal()
+    {
+        return new DecimalFormat("0.00").format(item_subtotal);
     }
 }

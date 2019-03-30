@@ -1,59 +1,120 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <style type="text/css" rel="stylesheet">
+        h4 {
+            display: inline-block;
+        }
 
+        h4, h5, h6 {
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        p {
+            margin: 0 0 10px;
+        }
+
+        .container {
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 15px;
+            padding-right: 15px;
+            width: 100%;
+        }
+
+        .row {
+            margin-left: -15px;
+            margin-right: 15px;
+        }
+
+        .invoice_details {
+            float: right;
+        }
+
+        .invoice_details h6 {
+            margin-top: 10px;
+        }
+
+        .container:after, .row:after {
+            clear: both;
+        }
+
+        .address {
+            margin-top: 20px;
+        }
+
+        .billing table {
+            border-collapse: collapse;
+            margin-top: 50px;
+            margin-bottom: 20px;
+            width: 100%;
+        }
+
+        .billing table th, .billing table td {
+            padding: 5px 0;
+        }
+
+        .billing table tfoot td {
+            font-weight: bold;
+        }
+
+        .right {
+            text-align: right;
+        }
+    </style>
 </head>
 <body>
-<table id="header-table">
-    <tr>
-        <td>Costumer</td>
-        <td th:text="${header.getCostumer_name()}"></td>
-        <td>Invoice Number</td>
-        <td th:text="${header.getInvoice_number()}"></td>
-        <td>Date</td>
-        <td th:text="${header.getInvoice_number()}"></td>
-    </tr>
+<div class="container">
+    <div class="row">
+        <h4 th:text="'Customer ' + ${header.getCostumer_name()}"/>
 
-    <tr>
-        <td>Address</td>
-        <td th:text="${header.getCostumer_address()}"></td>
-    </tr>
+        <div class="invoice_details">
+            <h5 th:text="'Invoice ID: ' + ${header.getInvoice_number()}"/>
+            <h6 th:text="'Date: ' + ${header.getInvoiceDate()}"/>
+        </div>
+    </div>
 
-    <tr>
-        <td>Country</td>
-        <td th:text="${header.getCostumer_country()}"></td>
-        <td>Value</td>
-        <td th:text="${header.getInvoice_value()}"></td>
-    </tr>
-</table>
+    <div class="row address">
+        <p th:text="'Address: ' + ${header.getCostumer_address()}"/>
+        <p th:text="${header.getCostumer_country()}"/>
+    </div>
 
-<table id="pdf-table">
-    <thead>
-        <tr>
-            <th scope="col">Quantity</th>
-            <th scope="col">Value</th>
-            <th scope="col">% Tax.</th>
-            <th scope="col">% Dis.</th>
-            <th scope="col">Service</th>
-            <th scope="col">Department</th>
-            <th scope="col">Resource</th>
-            <th scope="col">Qualification</th>
-            <th scope="col">Subtotal</th>
-        </tr>
-    </thead>
-
-    <tbody>
-    <tr th:each="invoice : ${invoices}">
-        <td scope="col" th:text="${invoice.item_quantity}">Title</td>
-        <td scope="col" th:text="${invoice.item_unit_value}">Title</td>
-        <td scope="col" th:text="${invoice.item_tax_percent}">Title</td>
-        <td scope="col" th:text="${invoice.item_discount_percent}">Title</td>
-        <td scope="col" th:text="${invoice.service_description}">Title</td>
-        <td scope="col" th:text="${invoice.department_name}">Title</td>
-        <td scope="col" th:text="${invoice.resource_name}">Title</td>
-        <td scope="col" th:text="${invoice.qualification_name}">Title</td>
-        <td scope="col" th:text="${invoice.item_subtotal}">Title</td>
-    </tr>
-    </tbody>
-</table>
+    <div class="row billing">
+        <table>
+            <thead>
+            <tr>
+                <th>Service</th>
+                <th class="right">Quantity</th>
+                <th class="right">Value</th>
+                <th class="right">% Tax.</th>
+                <th class="right">% Dis.</th>
+                <th class="right">Subtotal</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="invoice : ${invoices}">
+                <td>
+                    <span th:text="${invoice.service_description}"/><br/>
+                    <small>
+                        <span th:text="${invoice.resource_name} + ' - ' + ${invoice.qualification_name}"/>
+                        <span th:text="${invoice.department_name}"></span>
+                    </small>
+                </td>
+                <td class="right" th:text="${invoice.item_quantity}"/>
+                <td class="right" th:text="${invoice.getItemValue()}"/>
+                <td class="right" th:text="${invoice.getItemTax()}"/>
+                <td class="right" th:text="${invoice.getItemDiscount()}"/>
+                <td class="right" th:text="${invoice.getItemSubtotal()}"/>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+                <td class="right" colspan="5">Total</td>
+                <td class="right" th:text="${header.getInvoiceValue()}"/>
+            </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
 </body>
 </html>

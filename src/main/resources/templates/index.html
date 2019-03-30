@@ -50,7 +50,7 @@
 
                         <div class="col-sm-4">
                             <label for="header-invoice-date">Date</label>
-                            <input id="header-invoice-date" class="form-control" disabled="true" th:value="${header.invoice_date}">
+                            <input id="header-invoice-date" class="form-control" disabled="true" th:value="${header.getInvoiceDate()}">
                         </div>
                     </div>
 
@@ -69,35 +69,35 @@
 
                         <div class="col-sm-6">
                             <label for="header-invoice-value">Value</label>
-                            <input id="header-invoice-value" class="form-control" disabled="true" th:value="${header.invoice_value}">
+                            <input id="header-invoice-value" class="form-control" disabled="true" th:value="${header.getInvoiceValue()}">
                         </div>
                     </div>
                 </form>
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th scope="col">Quantity</th>
-                            <th scope="col">Value</th>
-                            <th scope="col">% Tax.</th>
-                            <th scope="col">% Dis.</th>
                             <th scope="col">Service</th>
                             <th scope="col">Department</th>
                             <th scope="col">Resource</th>
                             <th scope="col">Qualification</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">Value</th>
+                            <th scope="col">% Tax.</th>
+                            <th scope="col">% Dis.</th>
                             <th scope="col">Subtotal</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr th:each="invoice : ${invoices}">
-                            <td scope="col" th:text="${invoice.item_quantity}">Title</td>
-                            <td scope="col" th:text="${invoice.item_unit_value}">Title</td>
-                            <td scope="col" th:text="${invoice.item_tax_percent}">Title</td>
-                            <td scope="col" th:text="${invoice.item_discount_percent}">Title</td>
                             <td scope="col" th:text="${invoice.service_description}">Title</td>
                             <td scope="col" th:text="${invoice.department_name}">Title</td>
                             <td scope="col" th:text="${invoice.resource_name}">Title</td>
                             <td scope="col" th:text="${invoice.qualification_name}">Title</td>
-                            <td scope="col" th:text="${invoice.item_subtotal}">Title</td>
+                            <td scope="col" th:text="${invoice.item_quantity}">Title</td>
+                            <td scope="col" th:text="${invoice.getItemValue()}">Title</td>
+                            <td scope="col" th:text="${invoice.getItemTax()}">Title</td>
+                            <td scope="col" th:text="${invoice.getItemDiscount()}">Title</td>
+                            <td scope="col" th:text="${invoice.getItemSubtotal()}">Title</td>
                         </tr>
                     </tbody>
                 </table>
